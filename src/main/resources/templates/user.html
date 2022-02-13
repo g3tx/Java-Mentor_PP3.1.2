@@ -1,0 +1,105 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        #USER {
+            display: none;
+        }
+    </style>
+    <title>User page</title>
+
+</head>
+<body class="bg-light">
+
+<div class="container-fluid"> <!--общий контейнер на всю ширину-->
+    <div class="row">
+        <div class="col bg-dark border border-dark"> <!--темная граница, бг скрывает отступы-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+                <div>
+                    <span class="navbar-text text-white font-weight-bold" th:utext="${user.email}"></span>&nbsp;
+                    <span class="navbar-text text-white" th:utext="${'with roles: '+ user.rolesToString()}"></span>
+                </div>
+                <form class="form-inline"><a class="nav-link text-secondary" href="/logout">Logout</a></form>
+            </nav>
+        </div>
+    </div>
+
+    <!--общая строка на все панели-->
+    <div class="row">
+        <!--левая боковая панель-->
+        <div class="col-2 p-0 mt-2 bg-white list-group">
+            <nav class="nav nav-pills my-2 flex-column"> <!--вертикально кнопками-->
+                <li class="nav-item"><a class="nav-link border" href="/admin/all">Admin</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/user">User</a></li>
+            </nav>
+        </div>
+
+        <!--панель юзера-->
+        <div class="col my-3 mx-3">
+            <h1>User information-page</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" href="/admin/all">Users table</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/new">New User</a>
+                </li>
+            </ul>
+            <nav class="navbar border rounded-top" style="background-color: #f5f5f5;">
+                <span class="navbar-brand h1">About user</span>
+            </nav>
+
+            <!--вкладка пользователь-->
+            <div class="row">
+                <div class="col mx-3 border rounded-bottom">
+                    <div class="row bg-white">
+                        <div class="col my-3">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:utext="${user.getUserId()}"></td>
+                                    <td th:utext="${user.getFirstname()}"></td>
+                                    <td th:utext="${user.getLastname()}"></td>
+                                    <td th:utext="${user.getAge()}"></td>
+                                    <td th:utext="${user.getEmail()}"></td>
+                                    <td th:utext="${user.rolesToString()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+

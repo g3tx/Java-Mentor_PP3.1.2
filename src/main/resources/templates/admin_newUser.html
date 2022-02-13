@@ -1,0 +1,116 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Admin panel</title>
+    <style>
+        .container {
+            display: flex; /* элемент отображается как блочный flex-контейнер */
+            flex-wrap: nowrap; /* указывает, что флекс элементы выстраиваются в одну строку(это значение по умолчанию) */
+        }
+    </style>
+
+</head>
+<body class="bg-light">
+
+<div class="container-fluid"> <!--общий контейнер на всю ширину-->
+
+    <div class="row">
+        <div class="col bg-dark border border-dark"> <!--темная граница, бг скрывает отступы-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+                <div>
+                    <span class="navbar-text text-white font-weight-bold" th:utext="${userBar.email}"></span>&nbsp;
+                    <span class="navbar-text text-white" th:utext="${'with roles: '+ userBar.rolesToString()}"></span>
+                </div>
+                <form class="form-inline"><a class="nav-link text-secondary" href="/logout">Logout</a></form>
+            </nav>
+        </div>
+    </div>
+
+    <!--общая строка на все панели-->
+    <div class="row">
+        <!--левая боковая панель-->
+        <div class="col-2 p-0 mt-2 bg-white list-group">
+            <nav class="nav nav-pills my-2 flex-column"> <!--вертикально кнопками-->
+                <li class="nav-item"><a class="nav-link active" href="/admin/all">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user">User</a></li>
+            </nav>
+        </div>
+
+        <!--панель админа-->
+        <div class="col my-3 mx-3">
+            <h1>Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link" href="/admin/all">Users table</a></li>
+                <li class="nav-item"><a class="nav-link active border" href="/admin/new">New User</a>
+                </li>
+            </ul>
+            <nav class="navbar border rounded-top" style="background-color: #f5f5f5;">
+                <span class="navbar-brand h1">Add new user</span>
+            </nav>
+            <!--вкладка все пользователи-->
+            <div class="row">
+                <div class="col mx-3 border rounded-bottom bg-white">
+
+                <!-- вкладка добавить пользователя -->
+                    <form action="#" th:action="@{/admin/add}" th:object="${newUserForm}" method="post" class="font-weight-bold col-3 align-items-center justify-content-center mx-auto">
+                        <div class="form-group text-center my-3">
+                            <label for="firstname_new">First name</label>
+                            <input type="text" th:field="*{firstname}" class="form-control" placeholder="First name" id="firstname_new" name="firstname_new">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="lastname_new">Last name</label>
+                            <input type="text" th:field="*{lastname}" class="form-control" placeholder="Last name" id="lastname_new" name="lastname_new">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="age_new">Age</label>
+                            <input type="number" th:field="*{age}" class="form-control" placeholder="Age" id="age_new" name="age_new">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="email_new">Email</label>
+                            <input type="email" th:field="*{email}" class="form-control" placeholder="Email" id="email_new" name="email_new">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="password_new">Password</label>
+                            <input type="password" th:field="*{password}" class="form-control" placeholder="Password" id="password_new" name="password_new">
+                        </div>
+                        <div class="form-group text-center ">
+                            <label for="roles_new">Role</label>
+                                <select multiple class="custom-select form-control" size="2" id="roles_new" name="authorities">
+                                    <option th:each="role: ${newUserRoles}"
+                                            th:text="${role.rolenameWithoutSuf}"
+                                            th:value="${role.roleId}">
+                                    </option>
+                                </select>
+                                <button type="submit" class="btn btn-success my-3">Add new user</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

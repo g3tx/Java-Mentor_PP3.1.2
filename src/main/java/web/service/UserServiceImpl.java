@@ -12,7 +12,6 @@ import web.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editUser(User user) {
-        User userFromDb = userRepository.getUserByUsername(user.getUsername());
+        User userFromDb = userRepository.getUserById(user.getUserId());
         userFromDb.setUserId(user.getUserId());
         userFromDb.setFirstname(user.getFirstname());
         userFromDb.setLastname(user.getLastname());
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
         userFromDb.setEmail(user.getEmail());
         userFromDb.setPassword(passwordEncoder.encode(user.getPassword()));
         userFromDb.setRoles(user.getRoles());
-        userRepository.saveAndFlush(userFromDb);
+        userRepository.save(userFromDb);
     }
 
     @Override
@@ -67,8 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+        return userRepository.getUserById(userId);
     }
 
     @Override

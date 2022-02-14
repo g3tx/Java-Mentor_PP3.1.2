@@ -36,7 +36,8 @@ public class User implements Serializable, UserDetails {
     public User() {
     }
 
-    public User(String password, String firstname, String lastname, Integer age, String email, Set<Role> roles) {
+    public User(Long user_id, String password, String firstname, String lastname, Integer age, String email, Set<Role> roles) {
+        this.user_id = user_id;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;

@@ -64,7 +64,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/admin/edit")
+/*    @PostMapping(value = "/admin/edit")
     public String editUser(@Validated(User.class) @ModelAttribute User editedUser,
                           @RequestParam("authorities") List<String> listOfRoles,
                           BindingResult result) {
@@ -74,6 +74,19 @@ public class AdminController {
         Set<Role> roleSet = userService.ListOfRolesToSet(listOfRoles);
         editedUser.setRoles(roleSet);
         userService.editUser(editedUser);
+        return "redirect:/admin";
+    }*/
+
+    @PostMapping(value = "/admin/edit")
+    public String editUser(@RequestParam("authorities") List<String> listOfRoles,
+                           @RequestParam Long id_ed, String password_ed, String firstname_ed, String lastname_ed, Integer age_ed, String email_ed){
+
+       // User editedUser = userService.getUserById(id_ed);
+       // System.out.println("До___________" + editedUser.toString());
+        Set<Role> roleSet = userService.ListOfRolesToSet(listOfRoles);
+        //editedUser.setRoles(roleSet);
+        userService.editUser(new User(id_ed, password_ed, firstname_ed, lastname_ed, age_ed, email_ed, roleSet));
+       // System.out.println("После__________" + editedUser.toString());
         return "redirect:/admin";
     }
 
